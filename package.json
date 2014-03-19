@@ -1,0 +1,23 @@
+{
+  "title": "RH Customer Portal Actions Menu",
+  "description": "RH Actions Menu",
+  "author": "Red Hat",
+  "email": "",
+  "url": "https://access.redhat.com/labs/",
+  "copyright": "2014",
+  "version": "1.0.0",
+  "license": "CC BY-NC-ND",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-compass": "*",
+    "grunt-contrib-watch": "^0.6.0",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-cssmin": "*",
+    "grunt-contrib-imagemin": "~0.4.0",
+    "grunt-autoprefixer": "~0.4.2",
+    "matchdep": "*",
+    "grunt-bower-task": "~0.3.4",
+    "grunt-smushit": "^1.1.2"
+  }
+}

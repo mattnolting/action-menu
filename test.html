@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" media="screen, print" href="/actions-menu/css/style.min.css" />
+<link rel="stylesheet" type="text/css" media="screen, print" href="/actions-menu/css/fonts.css" />
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+</head>
+
+<body>
+
+	<menu id="actions-menu" class="actions-menu">
+		<button id="toggle-actions" class="btn-actions"><span class="icon-cog"></span></button>
+		<ul id="actions-menu-nav" class="actions-menu-nav">
+			<li rel="follow"><a class="toggle"><span class="icon-plus"></span></a></li>
+			<li rel="comment"><a class="toggle"><span class="icon-comment"></span></a></li>
+			<li rel="rate"><a class="toggle"><span class="icon-thumbs-up"></span></a></li>
+		</ul>
+
+		<ul id="sub-menu" class="sub-menu">
+			<li rel="follow" class="follow">
+				<div class="cell">
+					this is the follow content
+				</div>
+			</li>
+			<li rel="comment" class="comment">
+				<div class="cell">
+					<form>
+						<label for="comment">Leave a Comment</label><br />
+						<textarea name="comment"></textarea>
+						<button class="btn" type="submit">Submit</button>
+					</form>
+				</div>
+			</li>
+			<li rel="rate" class="rate">
+				<div class="cell">
+					this is the rate content
+				</div>
+			</li>
+		</ul>
+	</menu>
+	<h1>Test Page</h1>
+	<script src="/actions-menu/js/scripts.js"></script>
+</body>
+</html>
