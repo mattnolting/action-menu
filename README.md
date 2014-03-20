@@ -3,7 +3,7 @@ Action Menu
 
 A pluggable menu system to house page actions. AMD/require ready!
 
-##Useage
+##Usage
 ~~~
  require(['action-menu'], function (action_menu) {
 
