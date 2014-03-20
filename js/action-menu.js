@@ -82,23 +82,24 @@ define('action-menu', ['jquery'], function ($) {
 		// Open sub menu on icon click
 		action_menu.nav.find('li').click(function () {
 			// Define variables
-			var rel = $(this).attr('rel'),
-				current = action_menu.submenu.find('li[rel=' + rel + ']');
+			var $nav_element = $(this),
+				rel = $nav_element.attr('rel'),
+				$current = action_menu.submenu.find('li[rel=' + rel + ']');
 
 			// if the sub-menu is active/visible
-			if ($(this).hasClass('active-sub')) {
-				$(this).removeClass('active-sub');
+			if ($nav_element.hasClass('active-sub')) {
+				$nav_element.removeClass('active-sub');
 				action_menu.submenu.slideUp('fast', 'linear');
 			} else {
-				$(this).addClass('active-sub');
+				$nav_element.addClass('active-sub');
 
 				if (action_menu.submenu.find('li').length === 1) {
-					current.show();
+					$current.show();
 					action_menu.submenu.slideDown(250, 'linear');
 				} else {
 					action_menu.submenu.slideUp(250, 'linear', function () {
-						action_menu.submenu.find('li').not(current).hide(0, function () {
-							current.show();
+						action_menu.submenu.find('li').not($current).hide(0, function () {
+							$current.show();
 							action_menu.submenu.slideDown(250, 'linear');
 						});
 					});
