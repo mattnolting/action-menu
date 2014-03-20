@@ -45,12 +45,17 @@ define('action-menu', ['jquery'], function ($) {
 
 	private_functions.addWidget = function (widget) {
 		var action_menu = this,
-			nav_entry = '<li rel="' + widget.name + '"><a class="toggle"><span class="' + widget.style + '"></span></a></li>',
+			nav_entry = $('<li rel="' + widget.name + '"><a class="toggle"><span class="' + widget.style + '"></span></a></li>'),
 			submenu_entry = $('<li rel="' + widget.name + '" class="' + widget.name + '"><div class="cell"></div></li>');
 
 		action_menu.nav.prepend(nav_entry);
-		action_menu.submenu.prepend(submenu_entry);
-		submenu_entry.find('.cell').prepend(widget.submenu());
+
+		if (typeof widget.submenu !== 'undefined') {
+			action_menu.submenu.prepend(submenu_entry);
+			submenu_entry.find('.cell').prepend(widget.submenu());
+		} else if (typeof widget.action === 'function') {
+			widget.action(nav_entry);
+		}
 	};
 
 	private_functions.expose = function (selector) {
