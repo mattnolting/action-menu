@@ -44,14 +44,22 @@ define('action-menu', ['jquery'], function ($) {
 	};
 
 	private_functions.addWidget = function (widget) {
-		var action_menu = this;
-		action_menu.nav.prepend('<li rel="' + widget.name + '"><a class="toggle"><span class="' + widget.style + '"></span></a></li>');
-		action_menu.submenu.prepend('<li rel="' + widget.name + '" class="' + widget.name + '"><div class="cell">' + widget.submenu() + '</div></li>');
+		var action_menu = this,
+			nav_entry = '<li rel="' + widget.name + '"><a class="toggle"><span class="' + widget.style + '"></span></a></li>',
+			submenu_entry = $('<li rel="' + widget.name + '" class="' + widget.name + '"><div class="cell"></div></li>');
+
+		action_menu.nav.prepend(nav_entry);
+		action_menu.submenu.prepend(submenu_entry);
+		submenu_entry.find('.cell').prepend(widget.submenu());
 	};
 
 	private_functions.expose = function (selector) {
 		var action_menu = this;
+
+		// Add the markup
 		$(selector).prepend(action_menu.menu);
+
+
 		// Open menu on toggle click
 		action_menu.button.click(function () {
 			// If the toggle button is 'active,' remove the active-sub styling and close menu
