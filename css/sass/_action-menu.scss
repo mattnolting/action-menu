@@ -47,7 +47,6 @@ body, .wrapu {
 	@include transition-timing-function(ease-in);
 	@include border-radius(4px);
 
-
 	&.active {
 		width: 100%;
 		@include rem('padding-right', 44px);
@@ -98,6 +97,13 @@ body, .wrapu {
 	text-align: center;
 	@include transition-duration(.15s);
 
+	&:link {
+		color: #808080;
+	}
+
+	&:visited {
+		color: #808080;
+	}
 
 	&:hover {
 		color: gray;

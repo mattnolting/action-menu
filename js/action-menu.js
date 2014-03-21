@@ -45,7 +45,7 @@ define('action-menu', ['jquery'], function ($) {
 
 	private_functions.addWidget = function (widget) {
 		var action_menu = this,
-			nav_entry = $('<li rel="' + widget.name + '"><a class="toggle"><span class="' + widget.style + '"></span></a></li>'),
+			nav_entry = $('<li rel="' + widget.name + '"><a title="' + widget.title + '" class="toggle"><span class="' + widget.style + '"></span></a></li>'),
 			submenu_entry = $('<li rel="' + widget.name + '" class="' + widget.name + '"><div class="cell"></div></li>');
 
 		action_menu.nav.prepend(nav_entry);
