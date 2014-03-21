@@ -61,9 +61,14 @@ define('action-menu', ['jquery'], function ($) {
 	private_functions.expose = function (selector) {
 		var action_menu = this;
 
+		// dynamically size
+		action_menu.menu.css('width', 44 + (action_menu.nav.find('li').length * 44));
+		action_menu.nav.find('li').each(function () {
+			$(this).css('width', 100 / action_menu.nav.find('li').length + '%');
+		});
+
 		// Add the markup
 		$(selector).prepend(action_menu.menu);
-
 
 		// Open menu on toggle click
 		action_menu.button.click(function () {
