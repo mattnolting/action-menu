@@ -21,7 +21,6 @@ define('action-menu', ['jquery'], function ($) {
 
 		action_menu.menu.append(action_menu.button);
 		action_menu.menu.append(action_menu.nav);
-		action_menu.menu.append(action_menu.submenu);
 
 		action_menu.addWidget = private_functions.addWidget;
 		action_menu.expose = private_functions.expose;
@@ -29,13 +28,17 @@ define('action-menu', ['jquery'], function ($) {
 		return action_menu;
 	};
 
+
 	// Close Menu function
 	private_functions.closeUpShop = function (action_menu) {
-		if (action_menu.nav.hasClass('active')) {
-			action_menu.nav.find('li').removeClass('active-sub');
-			action_menu.submenu.slideUp(250, 'linear', function () {
+		if ($('.action-item').hasClass('active-sub')) {
+			var $active_sub = $('.active-sub');
+			$active_sub.find('.cell').slideUp(250, 'linear', function () {
 				action_menu.button.add(action_menu.nav).removeClass('active');
+				action_menu.nav.find('li').removeClass('active-sub');
 			});
+		} else {
+			action_menu.button.add(action_menu.nav).removeClass('active');
 		}
 	};
 
@@ -45,83 +48,88 @@ define('action-menu', ['jquery'], function ($) {
 
 	private_functions.addWidget = function (widget) {
 		var action_menu = this,
-			nav_entry = $('<li rel="' + widget.name + '"><a title="' + widget.title + '" class="toggle"><span class="' + widget.style + '"></span></a></li>'),
-			submenu_entry = $('<li rel="' + widget.name + '" class="' + widget.name + '"><div class="cell"></div></li>');
+			nav_entry = $('<li class="action-item"><a title="' + widget.title + '" class="toggle"><span class="' + widget.style + '"></span></a><div class="cell"></div></li>');
 
 		action_menu.nav.prepend(nav_entry);
 
 		if (typeof widget.submenu !== 'undefined') {
-			action_menu.submenu.prepend(submenu_entry);
-			submenu_entry.find('.cell').prepend(widget.submenu());
+			nav_entry.find('.cell').prepend(widget.submenu());
 		} else if (typeof widget.action === 'function') {
 			widget.action(nav_entry);
 		}
 	};
 
 	private_functions.expose = function (selector) {
+		//alert('exposed!');
 		var action_menu = this;
-
-		// dynamically size
-		action_menu.menu.css('width', 44 + (action_menu.nav.find('li').length * 44));
-		action_menu.nav.find('li').each(function () {
-			$(this).css('width', 100 / action_menu.nav.find('li').length + '%');
-		});
 
 		// Add the markup
 		$(selector).prepend(action_menu.menu);
 
-		// Open menu on toggle click
+		// ============================================= //
+		// OPEN MENU ON TOGGLE BUTTON CLICK / SHOW THE SUB-MENU
+		// ============================================= //
 		action_menu.button.click(function () {
+			var $cell = $('.active-sub .cell'),
+				$active_item = $('.action-item');
+
 			// If the toggle button is 'active,' remove the active-sub styling and close menu
-			if ($(this).hasClass('active') && action_menu.submenu.find('li').removeClass('active-sub')) {
-				action_menu.nav.find('li').removeClass('active-sub');
-				action_menu.submenu.slideUp(250, 'linear', function () {
+			if ($(this).hasClass('active')) {
+				if($active_item.hasClass('active-sub')) {
+					$cell.slideUp('fast', 'linear', function () {
+						action_menu.button.removeClass('active');
+						action_menu.nav.removeClass('active');
+						$active_item.removeClass('active-sub');
+					});
+				} else {
 					action_menu.button.add(action_menu.nav).removeClass('active');
-				});
+				}
 			} else {
 				action_menu.button.add(action_menu.nav).addClass('active');
+				//action_menu.button.add(action_menu.nav).addClass('active').css('overflow', 'visible');
 			}
 		});
 
 
-		// Open sub menu on icon click
-		action_menu.nav.find('li').click(function () {
+		// ============================================= //
+		// OPEN SUB-MENU ON ICON CLICK
+		// ============================================= //
+		action_menu.nav.find('.action-item .toggle').click(function () {
 			// Define variables
-			var $nav_element = $(this),
-				rel = $nav_element.attr('rel'),
-				$current = action_menu.submenu.find('li[rel=' + rel + ']');
+			var $nav_element = $(this).parent(),
+				toggle = $nav_element.find('.toggle'),
+				cell = $nav_element.find('.cell'),
+				notcurrent = $('.action-item .toggle').not(this).parent('.active-sub');
 
 			// if the sub-menu is active/visible
 			if ($nav_element.hasClass('active-sub')) {
 				$nav_element.removeClass('active-sub');
-				action_menu.submenu.slideUp('fast', 'linear');
-			} else {
+				cell.slideUp(200, 'linear');
+			} else if (notcurrent.hasClass('active-sub')) {
 				$nav_element.addClass('active-sub');
-
-				if (action_menu.submenu.find('li').length === 1) {
-					$current.show();
-					action_menu.submenu.slideDown(250, 'linear');
-				} else {
-					action_menu.submenu.slideUp(250, 'linear', function () {
-						action_menu.submenu.find('li').not($current).hide(0, function () {
-							$current.show();
-							action_menu.submenu.slideDown(250, 'linear');
-						});
-					});
-				}
+				notcurrent.removeClass('active-sub').find('.cell').slideUp(200, 'linear', function() {
+					$nav_element.find('.cell').slideDown(200, 'linear');
+				});
+			} else {
+				$nav_element.find('.cell').slideDown(200, 'linear');
+				$nav_element.addClass('active-sub');
 			}
-
-			action_menu.nav.find('li').not(this).removeClass('active-sub');
+			//action_menu.nav.find('li').not(this).removeClass('active-sub');
 		});
 
-		// ESC event listener
+
+		// ============================================= //
+		// ESC EVENT LISTENER
+		// ============================================= //
 		$(document).keyup(function (e) {
 			if (e.keyCode === 27) {
 				private_functions.closeUpShop(action_menu);
 			}
 		});
 
-		// Document click event listener
+		// ============================================= //
+		// DOCUMENT CLICK EVENT LISTENER
+		// ============================================= //
 		$('html').click(function () {
 			private_functions.closeUpShop(action_menu);
 		});

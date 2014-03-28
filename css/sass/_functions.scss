@@ -95,18 +95,66 @@
 		#{$property}: $rem-values;
 
 	}
-	@mixin oldfont-size($size, $line: $size * 1.4) {
-		font-size: $size; //Fallback in px
-		font-size: rem-calc($size);
-		line-height: $line; //Fallback in px
-		line-height: rem-calc($line);
-	}
 
 	@mixin font-size($size, $line: $size * 1.4){
 		font-size: ($size);
-		font-size: ($size / $base_font_size)  + rem;
+		font-size: ($size / $base_font_size) + rem;
 		line-height: $line; //Fallback in px
-		line-height: ($line / $base_font_size)  + rem;
+		line-height: ($line / $base_font_size) + rem;
+	}
+
+	@mixin media-query($point) {
+		@if($point == xs) {
+			@include breakpoint($xs, $no-query: true) {
+				@content;
+			}
+		}
+		@elseif($point == sm) {
+			@include breakpoint($sm, $no-query: true) {
+				@content;
+			}
+		}
+		@elseif($point == md) {
+			@include breakpoint($md, $no-query: true) {
+				@content;
+			}
+		}
+		@elseif($point == lg) {
+			@include breakpoint($lg, $no-query: true) {
+				@content;
+			}
+		}
+		@elseif($point == xl) {
+			@include breakpoint($xl, $no-query: true) {
+				@content;
+			}
+		}
+		@elseif($point == xs-max) {
+			@include breakpoint(max-width $xs, $no-query: true) {
+				@content;
+			}
+		}
+		@elseif($point == sm-max) {
+			@include breakpoint(max-width $sm, $no-query: true) {
+				@content;
+			}
+		}
+		@elseif($point == md-max) {
+			@include breakpoint(max-width $md, $no-query: true) {
+				@content;
+			}
+		}
+		@elseif($point == lg-max) {
+			@include breakpoint(max-width $lg, $no-query: true) {
+				@content;
+			}
+		}
+		@elseif($point == xl-max) {
+			@include breakpoint(max-width $xl, $no-query: true) {
+				@content;
+			}
+		}
+
 	}
 
 
