@@ -103,7 +103,9 @@ define('action-menu', ['jquery'], function ($) {
 				notcurrent = $('.action-item .toggle').not(this).parent('.active-sub');
 
 			// if the sub-menu is active/visible
-			if ($nav_element.hasClass('active-sub')) {
+			if($nav_element.hasClass('action')){
+				return false;
+			} else if ($nav_element.hasClass('active-sub')) {
 				$nav_element.removeClass('active-sub');
 				cell.slideUp(200, 'linear');
 			} else if (notcurrent.hasClass('active-sub')) {
