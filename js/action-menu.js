@@ -50,11 +50,12 @@ define('action-menu', ['jquery'], function ($) {
 		var action_menu = this,
 			nav_entry = $('<li class="action-item"><a title="' + widget.title + '" class="toggle"><span class="' + widget.style + '"></span></a><div class="cell"></div></li>');
 
-		action_menu.nav.prepend(nav_entry);
-
 		if (typeof widget.submenu !== 'undefined') {
+			action_menu.nav.append(nav_entry);
 			nav_entry.find('.cell').prepend(widget.submenu());
 		} else if (typeof widget.action === 'function') {
+			action_menu.nav.prepend(nav_entry);
+			nav_entry.addClass('action');
 			widget.action(nav_entry);
 		}
 	};
