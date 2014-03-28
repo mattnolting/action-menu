@@ -21,7 +21,6 @@
 		overflow: hidden;
 	}
 
-
 	@include media-query (xs) {
 		top: 0;
 		height: 100%;
@@ -49,8 +48,6 @@
 				height: 100%;
 			}
 
-
-
 			span {
 				@include opacity(1);
 			}
@@ -75,6 +72,20 @@
 		@include transition-duration(.5s);
 	}
 
+	&.action {
+		background: #fff;
+		border: 1px solid #f4f4f4;
+		border-right: none;
+
+		&.active-sub, &:hover {
+			background: #fafafa;
+		}
+
+		a:after, & a:before {
+			display: none;
+		}
+	}
+
 	/*------- Children -------*/
 	&:first-of-type {
 		@include border-radius(4px 0 0 4px);
@@ -90,13 +101,14 @@
 	}
 
 	&:first-child {
-		border-left: none;
 		@include box-shadow(none);
+		@include border-radius(4px 0 0 4px);
 	}
 
 	&.active-sub, &:hover {
+
 		color: #7a7a7a;
-		background: #e0e0e0;
+		background: #f0f0f0;
 		overflow: visible;
 
 		a {
@@ -190,7 +202,6 @@
 		}
 	}
 }
-
 
 .actions-menu {
 	position: relative;
