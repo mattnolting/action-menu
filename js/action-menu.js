@@ -103,19 +103,19 @@ define('action-menu', ['jquery'], function ($) {
 				notcurrent = $('.action-item .toggle').not(this).parent('.active-sub');
 
 			// if the sub-menu is active/visible
-			if($nav_element.hasClass('action')){
-				return false;
-			} else if ($nav_element.hasClass('active-sub')) {
-				$nav_element.removeClass('active-sub');
-				cell.slideUp(200, 'linear');
-			} else if (notcurrent.hasClass('active-sub')) {
-				$nav_element.addClass('active-sub');
-				notcurrent.removeClass('active-sub').find('.cell').slideUp(200, 'linear', function() {
+			if (!$nav_element.hasClass('action')) {
+				if ($nav_element.hasClass('active-sub')) {
+					$nav_element.removeClass('active-sub');
+					cell.slideUp(200, 'linear');
+				} else if (notcurrent.hasClass('active-sub')) {
+					$nav_element.addClass('active-sub');
+					notcurrent.removeClass('active-sub').find('.cell').slideUp(200, 'linear', function() {
+						$nav_element.find('.cell').slideDown(200, 'linear');
+					});
+				} else {
 					$nav_element.find('.cell').slideDown(200, 'linear');
-				});
-			} else {
-				$nav_element.find('.cell').slideDown(200, 'linear');
-				$nav_element.addClass('active-sub');
+					$nav_element.addClass('active-sub');
+				}
 			}
 			//action_menu.nav.find('li').not(this).removeClass('active-sub');
 		});
