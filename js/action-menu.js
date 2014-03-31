@@ -9,10 +9,11 @@ define('action-menu', ['jquery'], function ($) {
 	private_functions.build_menu = function (id) {
 		var action_menu = {};
 
-		action_menu.menu = $('<menu class="actions-menu">');
+		action_menu.wrapper = $('<div class="menu-wrapper right"></div>');
+		action_menu.menu = $('<menu class="actions-menu"></menu>');
 		action_menu.button = $('<button class="btn-actions"><span class="icon-cog"></span></button>');
-		action_menu.nav = $('<ul class="actions-menu-nav">');
-		action_menu.submenu = $('<ul class="sub-menu">');
+		action_menu.nav = $('<ul class="actions-menu-nav"></ul>');
+		action_menu.submenu = $('<ul class="sub-menu"></ul>');
 
 		action_menu.menu.attr('id', id);
 		action_menu.button.attr('id', id + "-toggle-actions");
@@ -21,6 +22,7 @@ define('action-menu', ['jquery'], function ($) {
 
 		action_menu.menu.append(action_menu.button);
 		action_menu.menu.append(action_menu.nav);
+		action_menu.wrapper.append(action_menu.menu);
 
 		action_menu.addWidget = private_functions.addWidget;
 		action_menu.expose = private_functions.expose;
@@ -65,7 +67,7 @@ define('action-menu', ['jquery'], function ($) {
 		var action_menu = this;
 
 		// Add the markup
-		$(selector).prepend(action_menu.menu);
+		$(selector).prepend(action_menu.wrapper);
 
 		// ============================================= //
 		// OPEN MENU ON TOGGLE BUTTON CLICK / SHOW THE SUB-MENU
